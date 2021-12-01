@@ -1,0 +1,7 @@
+{
+  "name": "project-organizer",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
