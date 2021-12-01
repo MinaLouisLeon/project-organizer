@@ -1,9 +1,22 @@
 const initialState = {
-    pageName : "listProjects",
+    pageName : "loginPage",
 }
 
 const mainReducer = (state=initialState,action) => {
-    return state
+    switch(action.type){
+        case 'logout' :
+            return{
+                ...state,
+                pageName : 'loginPage'
+            }
+        case 'setPageName' :
+            return{
+                ...state,
+                pageName : action.payload
+            }
+        default :
+            return state
+    }
 }
 
 export default mainReducer;

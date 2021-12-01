@@ -1,5 +1,5 @@
 import { IonApp } from "@ionic/react";
-
+import {app} from './backend/firebaseInit';
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
 
@@ -17,9 +17,10 @@ import "@ionic/react/css/flex-utils.css";
 import "@ionic/react/css/display.css";
 
 /* Theme variables */
-import "./theme/variables.css";
+// import "./theme/variables.css";
 
 //import pages
+import LoginPage from "./pages/LoginPage/LoginPage";
 import ListProjects from "./pages/ListProjects/ListProjects";
 
 import { useSelector } from "react-redux";
@@ -28,10 +29,12 @@ const App = () => {
   const pageName = useSelector(state => state.mainReducer.pageName);
   const handleNav = () => {
     switch(pageName){
+      case 'loginPage' :
+        return(<LoginPage/>)
       case 'listProjects' :
         return(<ListProjects/>)
       default :
-        return(<ListProjects/>)
+        return(<LoginPage/>)
     }
   }
   return (
