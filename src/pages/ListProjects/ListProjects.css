@@ -1,0 +1,9 @@
+.project-list-main-container {
+  /* background-color: aqua; */
+  top: 4rem;
+  left: 1rem;
+  right: 1rem;
+  bottom: 1rem;
+  position: absolute;
+  overflow: auto;
+}
