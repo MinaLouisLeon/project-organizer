@@ -11,27 +11,38 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import { useDispatch } from "react-redux";
 import { actionSetPageName, actionSetUserData } from "../../actions";
+import { checkUserInDatabase ,createNewUserinDatabase} from "../../backend/database";
 const LoginPage = () => {
   const dispatch = useDispatch(null);
-  const handleLogin = (e) => {
+  const handleLogin = async(e) => {
     console.log(e.user)
-    dispatch(actionSetUserData(
-      e.user.uid,
-      e.user.displayName,
-      e.user.email,
-      e.user.photoURL
-    ));
-    dispatch(actionSetPageName('listProjects'))
+    const res = await checkUserInDatabase(e.user.uid);
+    if(res === 'newUser'){
+      createNewUserinDatabase(e.user.uid);
+      dispatch(actionSetPageName('userNotApprovedPage'));
+    }
+    else{
+      console.log(res);
+      if(!res.isApproved){
+        dispatch(actionSetPageName('userNotApprovedPage'));
+      }else{
+         // TODO open APP & dispatch the user data
+         // TODO update the database that the user is logged in
+      }
+    }
   }
   //Configure FirebaseUI.
   const uiConfig = {
     // Popup signin flow rather than redirect flow.
     signInFlow: "popup",
     // We will display Google and Facebook as auth providers.
-    signInOptions: [firebase.auth.GoogleAuthProvider.PROVIDER_ID],
+    signInOptions: [
+      firebase.auth.EmailAuthProvider.PROVIDER_ID,
+      firebase.auth.GoogleAuthProvider.PROVIDER_ID],
     callbacks: {
       // Avoid redirects after sign-in.
       signInSuccessWithAuthResult: (e) => handleLogin(e),
+      
     },
   };
   return (
@@ -46,6 +57,7 @@ const LoginPage = () => {
           <StyledFirebaseAuth
             uiConfig={uiConfig}
             firebaseAuth={firebase.auth()}
+            uiCallback={ui => ui.disableAutoSignIn()}
           />
         </div>
       </IonContent>

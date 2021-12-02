@@ -22,6 +22,7 @@ import "@ionic/react/css/display.css";
 //import pages
 import LoginPage from "./pages/LoginPage/LoginPage";
 import ListProjects from "./pages/ListProjects/ListProjects";
+import UserNotApprovedPage from "./pages/UserNotApprovedPage/UserNotApprovedPage";
 
 import { useSelector } from "react-redux";
 
@@ -31,6 +32,8 @@ const App = () => {
     switch(pageName){
       case 'loginPage' :
         return(<LoginPage/>)
+      case 'userNotApprovedPage' :
+        return(<UserNotApprovedPage/>)
       case 'listProjects' :
         return(<ListProjects/>)
       default :

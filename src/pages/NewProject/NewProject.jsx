@@ -18,7 +18,7 @@ const NewProject = ({ setShowNewProjectView, showNewProjectView }) => {
         setProjectName("");
         setProjectDescription("\r");
       }}
-      submitText="Add"
+      submitText="Add" 
       onSubmit={(e) => {
         e.preventDefault();
         
